@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 
-word = "adv", "il2"
 
+warn = "wrn", "il1"
+adv_ = "adv", "il2"
 city = {
     0: "岡山",
     1: "玉野",
@@ -50,24 +51,70 @@ adv = {
     15: "着氷",
     16: "着雪",
 }
-chars_str = []
+wrn = {
+    0: "大雨",
+    1: "洪水",
+    2: "暴風 ",
+    3: "暴風雪",
+    4: "大雪",
+    5: "波浪",
+    6: "高潮",
+
+}
+wrn_chars_str = []
+adv_chars_str = []
 
 res = requests.get('https://www.jma.go.jp/jp/warn/340_table.html')
 html = BeautifulSoup(res.text)
-links = html.findAll(class_=word)
-print(links)
+links = html.findAll(class_=warn)
+link = html.findAll(class_=adv_)
 
 for char in links:
     chars = str(char)
-    chars_str.append(chars)
+    wrn_chars_str.append(chars)
 
-a = [chars_str[i:i+16] for i in range(0, len(chars_str), 16)]
-print(a)
-for aa, ww in enumerate(a):
-    print(f'{city[aa]}{a[aa]}')
+for char in link:
+    chars = str(char)
+    adv_chars_str.append(chars)
+
+place_warn = [wrn_chars_str[i:i+7] for i in range(0, len(wrn_chars_str), 7)]
+place_adv = [adv_chars_str[i:i+16] for i in range(0, len(adv_chars_str), 16)]
+
+for count, i in enumerate(place_warn):
+    print(f'{city[count]}::{place_warn[count]}')
 print('\n-----------------------------------------------------------------\n')
-for count, i in enumerate(a):
-    print(f'====={city[count]}======')
-    for con, e in enumerate(i):
-        if e == '<td class="adv">●</td>':
-            print(f'{adv[con]}')
+
+for count, i in enumerate(place_adv):
+    print(f'{city[count]}::{place_adv[count]}')
+
+
+def wrn_okayama():
+    for count, i in enumerate(place_warn):
+        print(f'====={city[count]}======')
+        for con, e in enumerate(i):
+            if '<td class="wrn"></td>' == e:
+                pass
+            elif '<td class="il1"></td>' == e:
+                pass
+            else:
+                print(f'{wrn[con]}')
+                if count == 0:
+                    return wrn[con]
+
+
+def adv_okayama():
+    for count_, i in enumerate(place_adv):
+        print(f'====={city[count_]}=====')
+        for con, e in enumerate(i):
+            if '<td class="adv"></td>'  == e:
+                pass
+            elif '<td class="il2"></td>' == e:
+                pass
+            else:
+                print(f'{adv[con]}')
+                continue
+
+
+wrn_okayama()
+print('--------------------')
+adv_okayama()
