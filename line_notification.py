@@ -14,7 +14,23 @@ def line_massage(line_massage_notification):
 
 while True:
     tim = str(datetime.now())
-    now = tim[11:]
+    now = tim[11:-10]
+
+    if '05:50' == now:
+        wrn = wrn_okayama()
+        if [] == wrn["美作"]:
+            pass
+        else:
+            line_massage(f'現在、美作市に{wrn["美作"]}警報が発令されています。\n'
+                         f'あと10分で決まるぞ！！')
+            time.sleep(60)
+
+    if '06:00' == now:
+        wrn = wrn_okayama()
+        if [] == wrn["美作"]:
+            pass
+        else:
+            line_massage(f'美作市に{wrn["美作"]}警報が発令！！\n学校休み')
 
     if '06:50' == now:
         wrn = wrn_okayama()
