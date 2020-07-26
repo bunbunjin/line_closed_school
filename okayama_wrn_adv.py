@@ -90,10 +90,8 @@ def detailed():
 
 
 def wrn_okayama():
-    ret = {}
     for count, i in enumerate(wrn_place):
         print(f'====={city[count]}======')
-        lit = []
         for con, e in enumerate(i):
             if '<td class="wrn"></td>' == e:
                 pass
@@ -101,16 +99,11 @@ def wrn_okayama():
                 pass
             else:
                 print(wrn[con])
-                lit.append(wrn[count])
-        ret[city[count]] = lit
-    return ret
 
 
 def adv_okayama():
-    ret = {}
     for cou, i in enumerate(adv_place):
         print(f'====={city[cou]}=====')
-        lit = []
         for count, e in enumerate(i):
             if '<td class="adv"></td>' == e:
                 pass
@@ -118,7 +111,10 @@ def adv_okayama():
                 pass
             else:
                 print(adv[count])
-                lit.append(adv[count])
 
-        ret[city[cou]] = lit
-    return ret
+detailed()
+print('\n=====================================================================================================')
+print('\n+++++警報+++++')
+wrn_okayama()
+print('\n+++++注意報+++++')
+adv_okayama()
