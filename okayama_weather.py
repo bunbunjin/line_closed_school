@@ -81,10 +81,10 @@ adv_place = [adv_chars_str[i:i+16] for i in range(0, len(adv_chars_str), 16)]
 
 
 def detailed():
-    print(f'\n警報----------------------------------------------------------------')
+    print('\n警報-------------------------------------------------------------')
     for i, ww in enumerate(wrn_place):
         print(f'{city[i]}{wrn_place[i]}')
-    print('\n注意報-----------------------------------------------------------------\n')
+    print('\n注意報-----------------------------------------------------------\n')
     for i, ww in enumerate(adv_place):
         print(f'{city[i]}{adv_place[i]}')
 
