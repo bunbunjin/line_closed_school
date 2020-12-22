@@ -51,6 +51,6 @@ def decision_okayama():
 schedule.every().day.at('05:50').do(reserve_mimasaka)
 schedule.every().day.at('06:00').do(decision_mimasaka)
 schedule.every().day.at('06:50').do(reserve_okayama)
-
+schedule.every().day.at('07:00').do(decision_okayama)
 while True:
     schedule.run_pending()
