@@ -2,6 +2,7 @@ import requests
 import time
 import schedule
 from okayama_weather import wrn_okayama
+from scraping_weather.weather import weather
 
 
 def line_massage(line_massage_notification):
@@ -48,9 +49,16 @@ def decision_okayama():
         time.sleep(60)
 
 
+def okayama_weather():
+    links = weather()
+    links = links[1]
+    print(f'{links[0]}の天気は{links[1]}、翌日の{links[3]}は{links[4]}です')
+
+
 schedule.every().day.at('05:50').do(reserve_mimasaka)
 schedule.every().day.at('06:00').do(decision_mimasaka)
 schedule.every().day.at('06:50').do(reserve_okayama)
 schedule.every().day.at('07:00').do(decision_okayama)
+schedule.every().day.at('00:00').do(okayama_weather)
 while True:
     schedule.run_pending()
