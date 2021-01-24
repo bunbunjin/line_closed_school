@@ -19,4 +19,4 @@ def weather():
             value = link[count].get_text()
         if count >= 1:
             links[key] = value
-    return links, data  #tuple型になる
+    return links, data
